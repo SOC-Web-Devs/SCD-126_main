@@ -1,0 +1,133 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\soc.solutions\\zayyan\\thirdweb-demo\\thirdweb-demo\\contracts\\CrowdFactory.sol": {
+      "lastModificationDate": 1666592607627,
+      "contentHash": "ba7212bb2eeec498451fdbc6c1bdf86b",
+      "sourceName": "contracts/CrowdFactory.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "C:\\Users\\soc.solutions\\zayyan\\thirdweb-demo\\thirdweb-demo\\contracts\\crowdfunding.sol": {
+      "lastModificationDate": 1666592615509,
+      "contentHash": "7c521323d4fc7a4d3cf0ec1bffe1e9e1",
+      "sourceName": "contracts/crowdfunding.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "C:\\Users\\soc.solutions\\zayyan\\thirdweb-demo\\thirdweb-demo\\contracts\\CrowdFundingFinal.sol": {
+      "lastModificationDate": 1666611257883,
+      "contentHash": "89994451d8d2006f84c7fb89e023647c",
+      "sourceName": "contracts/CrowdFundingFinal.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.15"
+      ],
+      "artifacts": [
+        "CrowdFundingFinal"
+      ]
+    },
+    "C:\\Users\\soc.solutions\\zayyan\\thirdweb-demo\\thirdweb-demo\\contracts\\CrowdfundingProject.sol": {
+      "lastModificationDate": 1666592602915,
+      "contentHash": "e66f09ab7900f1e18304f1e40dfa83c9",
+      "sourceName": "contracts/CrowdfundingProject.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": []
+    }
+  }
+}
