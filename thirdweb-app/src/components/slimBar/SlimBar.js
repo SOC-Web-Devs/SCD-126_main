@@ -4,7 +4,8 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Display from '../display/Display'
+import Display from '../display/Display';
+// import GetProject from '../GetProject/GetProject'
 import { Web3Button } from "@thirdweb-dev/react";
 import { ConnectWallet, useContract, useContractRead, useContractWrite, useAddress} from "@thirdweb-dev/react";
 import { Route, Routes } from 'react-router-dom';
@@ -16,7 +17,9 @@ const [TargetAmount, setValue4] = useState('');
 const [endDate, setEndDate] = useState(new Date());
 
 
-const { contract } = useContract("0x9b517CFdb6505b2ce56A637457C5aB3ebC340c5c");
+const { contract } = useContract("0x9831EEbc5801FD679c850abF7387a30647179B58");
+
+
 
 
 const address = useAddress();
@@ -35,72 +38,98 @@ const [loading, setLoading] = useState(false);
 const [projectIndex, setprojectIndex] = useState("");
 
 
+// const{ data: projectLength} = useContractRead(contract, projects.length);
 
-const FetchProjectById = async (id) => {
-  const{ data: fetchedProject} = useContractRead(contract, projects[id])
-  const parsedProject = {
-    owner: fetchedProject.owner.toString(),
-    pName: fetchedProject.pName.toString(),
-    pdescription: fetchedProject.pdescription.toString(),
-    target: fetchedProject.target.toString(),
-    timeCreated: new Date(parseInt(fetchedProject.timeCreated.toString()) * 1000),
-    deadline: new Date(parseInt(fetchedProject.deadline.toString()) * 1000),
-    amountCollected: fetchedProject.amountCollected
-  };
-  console.log(parsedProject);
-  return parsedProject;
+// const FetchProjectById = async (id) => {
+//   const{ data: fetchedProject} = useContractRead(contract, projects[id])
+//   const parsedProject = {
+//     owner: fetchedProject.owner.toString(),
+//     pName: fetchedProject.pName.toString(),
+//     pdescription: fetchedProject.pdescription.toString(),
+//     target: fetchedProject.target.toString(),
+//     timeCreated: new Date(parseInt(fetchedProject.timeCreated.toString()) * 1000),
+//     deadline: new Date(parseInt(fetchedProject.deadline.toString()) * 1000),
+//     amountCollected: fetchedProject.amountCollected
+//   };
+//   console.log('FetchProjectById');
+//   console.log(parsedProject);
+//   console.log(projectLength);
 
-}
+//   return parsedProject;
 
+// }
+
+const { mutateAsync: createProject } = useContractWrite(contract, "createProject")
 
   const call = async () => {
     try {
-      const data = await createProject([ _owner, _pName, _pdescription, _target, _deadline ]);
+      const data = await createProject([ OwnerName, ProjectName, ProjectDesciption, TargetAmount, "4234" ]);
       console.info("contract call successs", data);
     } catch (err) {
       console.error("contract call failure", err);
     }
   }
+ 
 
-
-
-
-const fetchAllProjects = async () => {
-  try {
-    const projects = [];
-    for (let i = 0; i < numProjects; i++) {
-      const project = await FetchProjectById(i);
-      projects.push(project);
-    }
-
-    console.log("Working");
-    console.log(projects);
-
-    setProjects(projects);
-    return projects;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const { data: numOfProjects, isLoading } = useContractRead(contract, "getNumProjects");
-
-
+  // const nOP = async () => {
+      
+  //     setNumProjects(numProjects.toString());
+  // }
   
 
 
-  return (
+// const FetchAllProjects = async () => {
+//   try {
+//     const projects = [];
+//     for (let i = 0; i < 1; i++) {
+//       const project = await FetchProjectById(i);
+//       projects.push(project);
+     
+//     }
+
+//     console.log("fetchAllProjects");
+//     console.log(projects.length);
+//     console.log(numOfProjects);
+
+//     setProjects(projects);
+//     return projects;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+
+
+// const { numOfProjects, wait  } = useContractRead(contract, "getNumProjects");
+
+// const { numOfProjectss, waits  } = useContractRead(contract, "getNumProjects");
+
+// console.log("here",numOfProjectss)
+// const GetProjects = async () => {
+//   var text = await contract.call("getNumProjects");
+//   console.log("there",);
+//   console.log(numOfProjects);
+
+// }
+// const { data, isLoading } = useContractRead(contract, "numProjects")
+const { project, isLoading } = useContractRead(contract, "getProject", 0)
+
+
+  return ( 
     <div className="container-fluid">
-    <div className="row">
+    <div className="row" >
       <div className="col-sm-auto  sticky-top" style={{width:'70px' ,height:'auto' , backgroundColor:'#13131a'}}>    
       <div className="d-flex flex-sm-column flex-row flex-nowrap  align-items-center sticky-top my-3" style={{backgroundColor: '#1c1c24' , borderRadius:'10px' , height:'50px'}}>
           <a href="/" className="d-block p-3 link-dark text-decoration-none"  data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
           <i style={{color:'#4acd8d'}} className="fa-solid fa-square"></i>
-          </a>
+          </a> 
         </div>
+    {/* <button type="button" className="btn btn-demo2" onClick={() => {console.log(numOfProjects)}}>Submit</button>  */}
+    {/* <button type="button" className="btn btn-demo2" onClick={() => FetchAllProjects()}>Submit 2</button>  */}
+    {/* <button type="button" className="btn btn-demo2" onClick={() => {console.log(data.toString())}}> Submit 3</button>  */}
+    <button type="button" className="btn btn-demo3" onClick={() => {console.log(project.toString())}}> Submit 4</button> 
 
-    <button type="button" className="btn btn-demo2" onClick={() => {console.log(numOfProjects.toString())}}>Submit</button> 
-    <button type="button" className="btn btn-demo2" onClick={() => fetchAllProjects()}>Submit 2</button> 
+    
     
       
     
@@ -110,7 +139,7 @@ const { data: numOfProjects, isLoading } = useContractRead(contract, "getNumProj
           </a>
           <ul className="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-100 px-3 align-items-center">
             <li className="nav-item">
-              
+               
               <i style={{color:'#808191'}} className="fa-sharp fa-solid fa-bullhorn"></i>
              
             </li>
@@ -137,7 +166,7 @@ const { data: numOfProjects, isLoading } = useContractRead(contract, "getNumProj
             </li>
           </ul>
           <div className="dropdown" style={{marginBottom:'20px'}}>
-            <i style={{color:'#808191'}} className="fa-solid fa-sun"></i>
+            <i style={{color:'#808191'}} className="fa-solid fa-sun"></i> 
           </div>
         </div>
       </div>
@@ -222,7 +251,7 @@ const { data: numOfProjects, isLoading } = useContractRead(contract, "getNumProj
                </div>
               </div>
               <div className="modal-footer">
-              <button type="button" className="btn btn-demo3" onClick={() => {call}  }>Submit</button> 
+              <button type="button" className="btn btn-demo3" onClick={() => {call()}  }>Submit</button> 
               <button type="button" className="btn btn-demo3" onClick={() => {console.log(OwnerName)}  }>print </button> 
   
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -25,8 +25,9 @@ contract CrowdFundingFinal{
         string memory _pName,
         string memory _pdescription,
         uint256 _target,
-        uint256 _deadline)
-    public {
+        uint256 _deadline) 
+        
+    public returns (uint256) {
         
         Project storage project = projects[numProjects];
         require(project.deadline<block.timestamp);
@@ -40,6 +41,10 @@ contract CrowdFundingFinal{
         project.amountCollected = 0;
 
         numProjects++;
+
+
+        return numProjects - 1;
+
     }
 
     modifier activeProjectsOnly(uint256 _projectIndex) {
@@ -80,8 +85,17 @@ contract CrowdFundingFinal{
     
     }
 
-    function getAllProjects() public{
-
+    function getProject(uint256 id) view public returns (address , string memory, string memory, uint256, uint256, uint256, uint256){
+        return (projects[id].owner,  projects[id].pName, projects[id].pdescription, projects[id].target, projects[id].timeCreated, projects[id].deadline, projects[id].amountCollected);
     }
 
 }
+
+//         address owner;
+//         string pName;
+//         string pdescription;
+//         uint256 target;
+//         uint256 timeCreated;
+//         uint256 deadline;
+//         uint256 amountCollected;
+//         mapping(address => uint256) donations;

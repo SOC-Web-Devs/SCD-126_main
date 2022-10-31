@@ -124,6 +124,39 @@ import styles from "../styles/Home.module.css";
 //   </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<button type="button" className="btn btn-demo2" onClick={() => {console.log(data[2].toString())}}> Submit 3</button> 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function Home() {
   // ETH Balance of the DAO contract
   const [treasuryBalance, setTreasuryBalance] = useState("0");

@@ -155,7 +155,6 @@ export default function Home() {
   // <div className="App">
   //     <SlimBar></SlimBar>
   //   </div>
-  const { contract } = useContract("0x9b517CFdb6505b2ce56A637457C5aB3ebC340c5c");
 
   // const { data: getNumProjects, isLoading: loadingName } = useContractRead(
   //   contract,
