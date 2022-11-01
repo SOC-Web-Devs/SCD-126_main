@@ -79,23 +79,45 @@ contract CrowdFundingFinal{
     function withdrawFunding(uint256 _projectIndex, address payable _pOwner) 
     public
     projectOwner(_projectIndex, _pOwner){
-        Project storage project = projects[_projectIndex];
+
+        (bool sent,) = _pOwner.call{value: projects[_projectIndex].amountCollected}("");
+        if (sent){
+            projects[_projectIndex].amountCollected = 0;
+        }
+        // Project storage project = projects[_projectIndex];
      
-        payable(_pOwner).transfer(project.amountCollected);
+        // payable(_pOwner).transfer(project.amountCollected);
+
     
     }
 
-    function getProject(uint256 id) view public returns (address , string memory, string memory, uint256, uint256, uint256, uint256){
-        return (projects[id].owner,  projects[id].pName, projects[id].pdescription, projects[id].target, projects[id].timeCreated, projects[id].deadline, projects[id].amountCollected);
+    function getProject(uint256 id) view public 
+    returns (
+        address , 
+        string memory, 
+        string memory, 
+        uint256, 
+        uint256, 
+        uint256, 
+        uint256){
+        return (projects[id].owner,  
+        projects[id].pName, 
+        projects[id].pdescription, 
+        projects[id].target, 
+        projects[id].timeCreated,
+         projects[id].deadline, 
+         projects[id].amountCollected);
     }
 
 }
 
-//         address owner;
-//         string pName;
-//         string pdescription;
-//         uint256 target;
-//         uint256 timeCreated;
-//         uint256 deadline;
-//         uint256 amountCollected;
-//         mapping(address => uint256) donations;
+
+//   function withdraw() public onlyOwner returns (bool){
+//         require(address(this).balance > 0, "Owner has not balance to withdraw");
+
+//         (bool sent,) = msg.sender.call{value: address(this).balance}("");
+//         require(sent, "Failed to send user balance back to the owner");
+//         return sent;
+//     }
+
+

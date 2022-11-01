@@ -1,15 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import FundMe from '../fundMe/FundMe'
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Display from '../display/Display';
-// import GetProject from '../GetProject/GetProject'
+import GetProject from '../GetProject/GetProject'
 import { Web3Button } from "@thirdweb-dev/react";
 import { ConnectWallet, useContract, useContractRead, useContractWrite, useAddress} from "@thirdweb-dev/react";
 import { Route, Routes } from 'react-router-dom';
-const SlimBar = ({demo}, getNumProjects) => {
+const SlimBar = () => {
 const [OwnerName, setValue1] = useState('');
 const [ProjectName, setValue2] = useState('');
 const [ProjectDesciption, setValue3] = useState('');
@@ -27,7 +27,7 @@ const address = useAddress();
 // True if user has connected their wallet, false otherwise
 const [walletConnected, setWalletConnected] = useState(false);
 // Number of proposals created in the DAO
-const [numProjects, setNumProjects] = useState("0");
+const [numProjects, setNumProjects] = useState(0);
 // Array of all proposals created in the DAO
 const [projects, setProjects] = useState([]);
 // One of "Create Proposal" or "View Proposals" 
@@ -112,7 +112,28 @@ const { mutateAsync: createProject } = useContractWrite(contract, "createProject
 
 // }
 // const { data, isLoading } = useContractRead(contract, "numProjects")
-const { project, isLoading } = useContractRead(contract, "getProject", 0)
+// const { project, isLoading } = useContractRead(contract, "getProject", 0)
+// const getNumProjects = async  () =>{
+//   const data = await contract.call("getNumProjects");
+//   return data.toString()
+// }
+
+// const getProject = async  () =>{
+//   const data = await contract.call("getProject", 0);  
+//     return Promise.resolve(data)
+// }
+
+const { data, isLoading } = useContractRead(contract, "getProject", 0);
+// const { data2, isLoadin } =  useContractRead(contract, "getNumProjects");
+
+const cal = async () => {
+const data2 = await contract.call("getNumProjects");
+
+let txt  = data2.toString();
+// console.log(txt);
+return txt;
+}
+
 
 
   return ( 
@@ -124,10 +145,11 @@ const { project, isLoading } = useContractRead(contract, "getProject", 0)
           <i style={{color:'#4acd8d'}} className="fa-solid fa-square"></i>
           </a> 
         </div>
-    {/* <button type="button" className="btn btn-demo2" onClick={() => {console.log(numOfProjects)}}>Submit</button>  */}
-    {/* <button type="button" className="btn btn-demo2" onClick={() => FetchAllProjects()}>Submit 2</button>  */}
+    <button type="button" className="btn btn-demo2" onClick={() => {console.log(data[0],data[1],data[2])}}>Submit</button> 
+    {/* <button type="button" className="btn btn-demo2" onClick={() => {GetProjects()}}>Submit 2</button>  */}
     {/* <button type="button" className="btn btn-demo2" onClick={() => {console.log(data.toString())}}> Submit 3</button>  */}
-    <button type="button" className="btn btn-demo3" onClick={() => {console.log(project.toString())}}> Submit 4</button> 
+    <button type="button" className="btn btn-demo3" onClick={async  () => { console.log(await cal());}}> Submit 4</button> 
+    {/* <button type="button" className="btn btn-demo3" onClick={  ()=> { console.log(numProjects)}}> Submit 4</button>  */}
 
     
     
@@ -286,9 +308,11 @@ const { project, isLoading } = useContractRead(contract, "getProject", 0)
       <Route path='/' element={<Display></Display>}></Route>
       <Route path='/FundMe' element={<FundMe></FundMe>}></Route>
     </Routes> */}
+   
     <Display>
       
     </Display>
+    
       </div>
     </div>
   </div>
