@@ -1,9 +1,11 @@
 import { ConnectWallet, useContract, useContractRead, useContractWrite, useAddress, Web3Button} from "@thirdweb-dev/react";
 import "./styles/Home.css";
 import SlimBar from './components/slimBar/SlimBar';
+import FundMe from './components/fundMe/FundMe'
+import {BrowserRouter as Router ,Routes, Route} from 'react-router-dom'
 import {  useState } from "react";
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
 // import Web3Modal from "web3modal";
 // add CONTRACT ADDRESS from .env then import here
 
@@ -205,27 +207,16 @@ export default function Home() {
 // const { data: numOfProjects, isLoading } = useContractRead(contract, "getNumProjects");
 
   return (
+    
+    // <Router>
+    
     <div>
-
+    
     <ConnectWallet/>
-    {/* <button type="button" className="btn btn-primary" onClick={() => console.log(projectsList)}>Demo</button> */}
-
-
-    {/* <Web3Button>
-                contractAddress=contract
-                action = {() => {console.log(numOfProjects.toString)}}
-                
   
-                </Web3Button> */}
-     <SlimBar 
-    //  FetchAllProjects={FetchAllProjects} 
-    //  CreateProject = {CreateProject} 
-    //  demo = {demo}
-    //  getNumProjects
-     
-     >
-      </SlimBar>     
+       
   </div>
+  // {/* </Router> */}
   
   );
 }

@@ -3,12 +3,18 @@ import FundMe from '../fundMe/FundMe'
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import DatePicker from "react-datepicker";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+ } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import Display from '../display/Display';
 import GetProject from '../GetProject/GetProject'
+import Web3Modal from "web3modal";
 import { Web3Button } from "@thirdweb-dev/react";
 import { ConnectWallet, useContract, useContractRead, useContractWrite, useAddress} from "@thirdweb-dev/react";
-import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
 const SlimBar = () => {
 const [OwnerName, setValue1] = useState('');
 const [ProjectName, setValue2] = useState('');
