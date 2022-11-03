@@ -1,2 +1,1 @@
-//Make components for each getter
-//then call them in slimBar
+// use num mof projects from getter in the loop iterator

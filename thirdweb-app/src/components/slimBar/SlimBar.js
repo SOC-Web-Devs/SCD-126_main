@@ -23,7 +23,7 @@ const [TargetAmount, setValue4] = useState('');
 const [endDate, setEndDate] = useState(new Date());
 
 
-const { contract } = useContract("0x9831EEbc5801FD679c850abF7387a30647179B58");
+const { contract } = useContract("0xFeC9a5a8e3C1FbF59ea5cB213f723C6c2672E322");
 
 
 
@@ -140,6 +140,44 @@ let txt  = data2.toString();
 return txt;
 }
 
+// const { , isLoadingg } = useContractRead(contract, "getNumProjects");
+
+
+let project = [];
+ 
+const getProject = async () =>  {
+  var noOfProj = parseInt(await cal());
+
+  for (let i = 0; i < noOfProj ; i++){
+
+    const data = await contract.call("getProject", i);
+    let date = data[4].toString();
+    date = new Date(parseInt(date) * 1000);
+    // console.log("********")
+    // console.log("date",date);
+
+    console.log("No of projects",project + 6);
+
+
+    console.log("Address", data[0]);
+    console.log("Project Name", data[1]);
+    console.log("Project Description", data[2]);
+
+    console.log("Time Created",Date(data[4].toString()));
+    console.log("Deadline",Date(data[5].toString()));
+    console.log("Target", data[3].toString());
+    console.log("Amount collected", data[6].toString());
+
+
+    // console.log("data SPECIFIC TYPE",typeof(data[0]));
+    // console.log("\ndata",data);
+    // console.log("type of data",typeof(data));
+    // console.log("********")
+    // project.push(data);
+  }
+}
+
+
 
 
   return ( 
@@ -152,8 +190,8 @@ return txt;
           </a> 
         </div>
     <button type="button" className="btn btn-demo2" onClick={() => {console.log(data[0],data[1],data[2])}}>Submit</button> 
-    {/* <button type="button" className="btn btn-demo2" onClick={() => {GetProjects()}}>Submit 2</button>  */}
-    {/* <button type="button" className="btn btn-demo2" onClick={() => {console.log(data.toString())}}> Submit 3</button>  */}
+    <button type="button" className="btn btn-demo2" onClick={() => {getProject()}}>Submit 2</button> 
+    <button type="button" className="btn btn-demo2" onClick={() => {console.log(typeof(project.toString()))}}> Submit 3</button> 
     <button type="button" className="btn btn-demo3" onClick={async  () => { console.log(await cal());}}> Submit 4</button> 
     {/* <button type="button" className="btn btn-demo3" onClick={  ()=> { console.log(numProjects)}}> Submit 4</button>  */}
 
@@ -263,7 +301,7 @@ return txt;
                <label>Project Description <InputText value={ProjectDesciption} style={{width:'100%'}} onChange={(e) => setValue3(e.target.value)} /></label>
                </div>
                <div className='row'>
-               <label>Target Amount<br></br> <InputNumber inputId="integeronly" style={{width:'200px'}} value={TargetAmount} onValueChange={(e) => setValue4(e.value)} /> </label>
+               <label>Target Amount<br></br> <InputNumber inputId="integeronly" style={{width:'200px'}} value={TargetAmount} onValueChange={(e) => setValue4(e.value *10**18)} /> </label>
                </div>
                <div className='row'>
                <label>Project Deadline <br></br>  <DatePicker
@@ -280,7 +318,7 @@ return txt;
               </div>
               <div className="modal-footer">
               <button type="button" className="btn btn-demo3" onClick={() => {call()}  }>Submit</button> 
-              <button type="button" className="btn btn-demo3" onClick={() => {console.log(OwnerName)}  }>print </button> 
+              <button type="button" className="btn btn-demo3" onClick={() => {getProject()}  }>print </button> 
   
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 {/* <button type="button" className="btn btn-primary" onClick={() => demo(OwnerName, ProjectName, ProjectDesciption, TargetAmount, endDate)}>Submit</button> */}
@@ -314,10 +352,11 @@ return txt;
       <Route path='/' element={<Display></Display>}></Route>
       <Route path='/FundMe' element={<FundMe></FundMe>}></Route>
     </Routes> */}
+    {/* <Display>
+
+    </Display> */}
    
-    <Display>
-      
-    </Display>
+   
     
       </div>
     </div>

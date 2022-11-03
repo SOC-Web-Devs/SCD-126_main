@@ -3,8 +3,9 @@ pragma solidity ^0.8.15;
 
 contract CrowdFundingFinal{
 
+
     struct Project{
-        address owner;
+        address  owner;
         string pName;
         string pdescription;
         uint256 target;
@@ -24,8 +25,8 @@ contract CrowdFundingFinal{
         address _owner, 
         string memory _pName,
         string memory _pdescription,
-        uint256 _target,
-        uint256 _deadline) 
+        uint256 _target ,
+        uint256 _deadline ) 
         
     public returns (uint256) {
         
@@ -35,10 +36,10 @@ contract CrowdFundingFinal{
         project.owner = _owner;
         project.pName = _pName;
         project.pdescription = _pdescription;
-        project.target = _target;
-        project.timeCreated = block.timestamp;
-        project.deadline = _deadline;
-        project.amountCollected = 0;
+        project.target = _target * 10**18;
+        project.timeCreated = block.timestamp / 60 / 60 / 24;
+        project.deadline = _deadline / 60 / 60 / 24;
+        project.amountCollected = 0 ;
 
         numProjects++;
 
@@ -60,12 +61,21 @@ contract CrowdFundingFinal{
 
 
     // DONATE ON PROJECT
-    function donateOnProject(uint256 _projectIndex, address _donator, uint256 _amount) 
-    public activeProjectsOnly(_projectIndex) {
-        Project storage project = projects[_projectIndex];
+    function donateOnProject(uint256 _projectIndex, address payable _donator, uint256 _amount) 
+    public payable activeProjectsOnly(_projectIndex) {
 
+        require(msg.value >= _amount); 
+        Project storage project = projects[_projectIndex];
         project.donations[_donator] = _amount;
-        project.amountCollected = project.amountCollected + _amount;
+
+       (bool sent,) = project.owner.call{value: _amount * 10**18}("");
+
+       if(sent){
+            project.amountCollected = project.amountCollected + _amount;
+
+       }
+        
+        // payable(project.owner).transfer(_amount);
 
     }
 
@@ -109,6 +119,9 @@ contract CrowdFundingFinal{
          projects[id].amountCollected);
     }
 
+    fallback() external payable {}
+
+    receive() external payable {}
 }
 
 

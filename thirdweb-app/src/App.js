@@ -213,6 +213,9 @@ export default function Home() {
     <div>
     
     <ConnectWallet/>
+    <SlimBar>
+       
+    </SlimBar>
   
        
   </div>
