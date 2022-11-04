@@ -1,6 +1,9 @@
 import React from "react";
 import background from "../../images/project1.jpg";
-const FundMe = () => {
+import { useLocation } from "react-router-dom";
+const FundMe = (props) => {
+  const location = useLocation();
+  const data = location.state?.data;
   return (
     <div>
       <main className="t-campaign-page-template-content global-wrapper">
@@ -17,13 +20,14 @@ const FundMe = () => {
           </div>
           <header className="p-campaign-header mb-4">
             <h1 className="mb0 p-campaign-title" style={{color:'#ffffff'}}>
-              Let’s give Josue a safe home &amp; mom a business
+              {/* Let’s give Josue a safe home &amp; mom a business */}
+              {data.name}
             </h1>
           </header>
           {/** */}
           <div style={{display:'flex'}}>
-          <div style={{width:'auto' , left:'0'}}>
-          <img src="assets/images/project1.jpg" alt="Girl in a jacket" width="auto" height="auto"></img>
+          <div className="gird" style={{width:'auto' , left:'0'}}>
+          <img className="col-12 md:col-6 lg:col-12" src="assets/images/project1.jpg" alt="Girl in a jacket" width="auto" height="auto"></img>
           </div>
           <div
             className="p-campaign-sidebar"
@@ -62,13 +66,7 @@ const FundMe = () => {
                   </div>
                 </div>
                 <div className="p-campaign-share-donate-buttons">
-                  <a
-                    className="p-campaign-donate-button-exp mb m-auto hrt-gradient-button hrt-gradient-button--gradient-yellow hrt-gradient-button--full hrt-gradient-button--shadow hrt-base-button"
-                    data-element-id="btn_share"
-                    href="/"
-                  >
-                    <span className="hrt-gradient-button-text">Share</span>
-                  </a>
+              
                   <a
                     className="p-campaign-share-button-exp mb2x m-auto hrt-gradient-button hrt-gradient-button--gradient-orange hrt-gradient-button--full hrt-gradient-button--shadow hrt-base-button"
                     data-element-id="btn_donate"
@@ -382,40 +380,13 @@ const FundMe = () => {
                 >
                   Donate
                 </a>
-                <a
-                  className="ml2x hrt-secondary-button hrt-secondary-button--gold hrt-secondary-button--full hrt-secondary-button--large hrt-base-button"
-                  data-element-id="btn_story_share"
-                  href="lets-give-josue-a-safe-home-mom-a-business/shared54a.html?qid=d85ddd491b0f752411e935c276a0fde4"
-                >
-                  Share
-                </a>
               </div>
             </div>
             <div className="p-campaign-donations hide-for-large">
               <div className="hrt-rule hrt-rule--horizontal" />
               <div className="flex-container justify-between mb3x">
                 <h2 className="mb0">Donations </h2>
-                <a
-                  className="hrt-secondary-button hrt-secondary-button--gray hrt-secondary-button--inline hrt-secondary-button--small hrt-base-button"
-                  data-element-id="btn_donate_topdonations"
-                  href="lets-give-josue-a-safe-home-mom-a-business/topdonations/indexd54a.html?qid=d85ddd491b0f752411e935c276a0fde4"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="o-campaign-sidebar-top-donations-icon mr hrt-icon hrt-icon--small"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <use
-                      href="https://www.gofundme.com/_next/static/images/action-icons-9645f6597c00bf86c32ee777223af9ed.svg#star"
-                      xlinkHref="https://www.gofundme.com/_next/static/images/action-icons-9645f6597c00bf86c32ee777223af9ed.svg#star"
-                    ></use>
-                  </svg>
-                  <span className="show-for-xlarge-only">
-                    See top donations
-                  </span>
-                  <span className="hide-for-xlarge">See top</span>
-                </a>
+               
               </div>
               <div>
                 <div className="p-campaign-metadata-indicator" />
@@ -580,13 +551,7 @@ const FundMe = () => {
                 >
                   Donate
                 </a>
-                <a
-                  className="ml2x hrt-gradient-button hrt-gradient-button--gradient-yellow hrt-secondary-button--full hrt-secondary-button--large hrt-base-button"
-                  data-element-id="btn_story_share"
-                  href="/"
-                >
-                  Share
-                </a>
+
               </div>
               <div className="hrt-rule hrt-rule--horizontal" />
             </div>
@@ -680,16 +645,7 @@ const FundMe = () => {
                   </div>
                   {/** */}
                   {/** */}
-                  <div className="m-campaign-members-main-contact ml7x">
-                    <button
-                      className="hrt-secondary-button  hrt-secondary-button--inline hrt-secondary-button--medium hrt-base-button"
-                      type="button"
-                      data-element-id="btn_organizer_contact"
-                      style={{backgroundColor:'#4acd8d', color:'white'}}
-                    >
-                      Contact
-                    </button>
-                  </div>
+               
                 </div>
               </div>
             </div>

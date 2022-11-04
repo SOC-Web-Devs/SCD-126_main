@@ -18,59 +18,59 @@ const Display = () => {
   
 const { contract } = useContract("0xFeC9a5a8e3C1FbF59ea5cB213f723C6c2672E322");
 
-  const [numProjects, setNumProjects] = useState(0);
-  // const [projects, setProjects] = useState([]);
-  const { data, isLoading } = useContractRead(contract, "getProject", 0);
-// const { data2, isLoadin } =  useContractRead(contract, "getNumProjects");
+// //   const [numProjects, setNumProjects] = useState(0);
+// //   // const [projects, setProjects] = useState([]);
+// //   const { data, isLoading } = useContractRead(contract, "getProject", 0);
+// // // const { data2, isLoadin } =  useContractRead(contract, "getNumProjects");
 
 
-const cal = async () => {
-  const data2 = await contract.call("getNumProjects");
+// const cal = async () => {
+//   const data2 = await contract.call("getNumProjects");
   
-  let txt  = data2.toString();
-  // console.log(txt);
-  return txt;
-  }
+//   let txt  = data2.toString();
+//   // console.log(txt);
+//   return txt;
+//   }
   
-// const { , isLoadingg } = useContractRead(contract, "getNumProjects");
+// // const { , isLoadingg } = useContractRead(contract, "getNumProjects");
 
 
 let projects = [];
 let project = [];
  
-const getProject = async () =>  {
-  var noOfProj = parseInt(await cal());
+// const getProject = async () =>  {
+//   var noOfProj = parseInt(await cal());
 
-  for (let i = 0; i < noOfProj ; i++){
+//   for (let i = 0; i < noOfProj ; i++){
 
-    const data = await contract.call("getProject", i);
-    let date = data[4].toString();
-    date = new Date(parseInt(date) * 1000);
-    // console.log("********")
-    // console.log("date",date);
+//     const data = await contract.call("getProject", i);
+//     let date = data[4].toString();
+//     date = new Date(parseInt(date) * 1000);
+//     // console.log("********")
+//     // console.log("date",date);
 
-    console.log("No of projects",project + 6);
-
-
-    console.log("Address", data[0]);
-    console.log("Project Name", data[1]);
-    console.log("Project Description", data[2]);
-
-    console.log("Time Created",Date(data[4].toString()));
-    console.log("Deadline",Date(data[5].toString()));
-    console.log("Target", data[3].toString());
-    console.log("Amount collected", data[6].toString());
+//     console.log("No of projects",project + 6);
 
 
-    // console.log("data SPECIFIC TYPE",typeof(data[0]));
-    // console.log("\ndata",data);
-    // console.log("type of data",typeof(data));
-    // console.log("********")
-    // project.push(data);
-  }
-}
+//     console.log("Address", data[0]);
+//     console.log("Project Name", data[1]);
+//     console.log("Project Description", data[2]);
+
+//     console.log("Time Created",Date(data[4].toString()));
+//     console.log("Deadline",Date(data[5].toString()));
+//     console.log("Target", data[3].toString());
+//     console.log("Amount collected", data[6].toString());
 
 
+//     // console.log("data SPECIFIC TYPE",typeof(data[0]));
+//     // console.log("\ndata",data);
+//     // console.log("type of data",typeof(data));
+//     // console.log("********")
+//     // project.push(data);
+//   }
+// }
+
+// 
 
 
   // // const { crowdContract } = useContract("0x9831EEbc5801FD679c850abF7387a30647179B58");

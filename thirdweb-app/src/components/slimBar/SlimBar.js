@@ -352,9 +352,9 @@ const getProject = async () =>  {
       <Route path='/' element={<Display></Display>}></Route>
       <Route path='/FundMe' element={<FundMe></FundMe>}></Route>
     </Routes> */}
-    {/* <Display>
+    <Display>
 
-    </Display> */}
+    </Display>
    
    
     
