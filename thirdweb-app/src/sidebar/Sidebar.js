@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import Display from '../components/display/Display'
 import Navbar from '../components/navbar/Navbar'
 import {Routes , Route} from 'react-router-dom'
 import FundMe from '../components/fundMe/FundMe'
+
 const Sidebar = () => {
+
   return (
     <div>
       <div className="sidebar" style={{width:'70px'}}>

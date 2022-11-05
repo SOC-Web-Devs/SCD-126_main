@@ -1,1 +1,1 @@
-// use num mof projects from getter in the loop iterator
+// display me loading ka koi scene krna prega q k wo empty utha rha h

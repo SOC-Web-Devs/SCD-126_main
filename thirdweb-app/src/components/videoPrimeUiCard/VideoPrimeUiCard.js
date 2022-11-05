@@ -1,21 +1,21 @@
 import React from 'react'
 import { Card } from 'primereact/card';
-import 'primeicons/primeicons.css';
+
 const VideoPrimeUiCard = () => {
-    const footer = (
-        <div className='container' style={{display:'flex', marginBottom:'5px', marginTop:'4px'}}>
+    // const footer = (
+    //     <div className='container' >
 
-        <div className='row' style={{width:'100%'}}>
-        <div className='col-4 footerby'>Raised of 2500$</div>
-        <div className='col-4 footerby'>Total Backers</div>
-        <div className='col-4 footerby'>Days Left</div>
+    //     <div className='grid' style={{width:'100%'}}>
+    //     <div className='col-4 footerby'>Raised of 2500$</div>
+    //     <div className='col-4 footerby'>Total Backers</div>
+    //     <div className='col-4 footerby'>Days Left</div>
 
-        </div>
-        </div>
-    );
+    //     </div>
+    //     </div>
+    // );
   return (
-    <div style={{height:'140px' , width:'70%'}}>
-    <Card  style={{    borderRadius:'10px'}} footer={footer}>
+    <div style={{height:'auto' , width:'90%'}}>
+    <Card  style={{    borderRadius:'10px' , backgroundColor:'#13131a'}}>
     <div className='container'>
     <div>
     <p className='pi pi-folder' style={{color:'#6c6d7b'}}>&nbsp;Architecture</p>
@@ -34,10 +34,16 @@ const VideoPrimeUiCard = () => {
     <div style={{display:'flex', marginBottom:'5px', marginTop:'10px'}}>
 
     <div className='row' style={{width:'100%'}}>
+      <div style={{display:'flex'}}>
     <div className='col-4 footerup'>$2000</div>
     <div className='col-4 footerup'>173</div>
     <div className='col-4 footerup'>30</div>
-
+    </div>
+    <div style={{display:'flex'}}>
+    <div style={{color:'#6c6d7b'}}  className='col-4 footerup'>Raised of 2500$</div>
+    <div style={{color:'#6c6d7b'}} className='col-4 footerup'>Total Backers</div>
+    <div style={{color:'#6c6d7b'}} className='col-4 footerup'>Days Left</div>
+    </div>
     </div>
     </div>
 
