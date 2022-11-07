@@ -32,7 +32,7 @@ const getProject = async () =>  {
     let date = data[4].toString();
     date = new Date(parseInt(date) * 1000);
     // console.log("********")
-    console.log("date",date);
+    // console.log("date",date);
 
     const parsedProject = {
       address: data[0],
@@ -62,7 +62,7 @@ const getProject = async () =>  {
   }
   setProjects(projects);
 
-  console.log(projects)
+  // console.log(projects)
 }    
 
   // let project = [

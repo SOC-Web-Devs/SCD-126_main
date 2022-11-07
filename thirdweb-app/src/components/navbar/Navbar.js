@@ -10,10 +10,13 @@ import Moralis from 'moralis';
 import {
   ConnectWallet,
   useContract,
+  useStorageUpload ,
   useContractRead,
   useContractWrite,
   useAddress,
 } from "@thirdweb-dev/react";
+// import { readFileSync } from "fs";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
 
 const Navbar = () => {
   const [OwnerName, setValue1] = useState("");
@@ -36,37 +39,24 @@ const Navbar = () => {
     "createProject"
   );
 
+  const { mutateAsync: upload } = useStorageUpload();
+  const storage = new ThirdwebStorage();
+
   const call = async () => {
-    if (!isAuthenticated) {
+    console.log("uris");
+    console.log(endDate);
 
-      await authenticate()
-        .then(function (user) {
-          console.log(!user.get("ethAddress"));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+    const dataToUpload = [picture];
+    const uris = await upload({ data: dataToUpload });
+    // const file = readFileSync(dataToUpload);
+    // const uris = await storage.upload(file);
+ 
+    let ipfs = uris.toString();
+
+    SetImage(ipfs);
 
 
-    var reader = new FileReader();
-    reader.onloadend =async function() {
-      //console.log('RESULT', reader.result)
-      const base64 = reader.result;
-      saveFile(
-        "myfile.png",
-        { base64 },
-        {
-          type: "base64",
-          saveIPFS: true,
-          onSuccess: (result) => {console.log(result.ipfs()); SetImage(result.ipfs())},
-          onError: (error) => console.log(error),
-        }
-      );
-    }
-   await reader.readAsDataURL(picture);
 
-console.log("Image hai "+imageIPFS);
 
     try {
       const data = await createProject([
@@ -74,11 +64,9 @@ console.log("Image hai "+imageIPFS);
         ProjectName,
         ProjectDesciption,
         TargetAmount,
-        "1324",
+        endDate,
         imageIPFS,
       ]);
-      console.info("contract call successs", data);
-      console.log(imageIPFS);
     } catch (err) {
       console.error("contract call failure", err);
     }
@@ -86,44 +74,49 @@ console.log("Image hai "+imageIPFS);
 
 
 
-  const { authenticate, isAuthenticated, user } = useMoralis();
+  // const { authenticate, isAuthenticated, user } = useMoralis();
   const [picture, setPicture] = useState("");
+
   const onChangePicture = (e) => {
-    console.log('picture: ', picture);
     setPicture(e.target.files[0]);
+    // console.log('picture: ', picture);
+
 };
-    const { saveFile } = useMoralisFile();
-    const uploadFile = async () => {
-      if (!isAuthenticated) {
+    // const { saveFile } = useMoralisFile();
+    // 
+    // const uploadFile = async () => {
 
-        await authenticate()
-          .then(function (user) {
-            console.log(!user.get("ethAddress"));
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
+      
+      // if (!isAuthenticated) {
+
+      //   await authenticate()
+      //     .then(function (user) {
+      //       console.log(!user.get("ethAddress"));
+      //     })
+      //     .catch(function (error) {
+      //       console.log(error);
+      //     });
+      // }
 
 
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        //console.log('RESULT', reader.result)
-        const base64 = reader.result;
-        saveFile(
-          "myfile.png",
-          { base64 },
-          {
-            type: "base64",
-            saveIPFS: true,
-            onSuccess: (result) => {console.log(result.ipfs()); SetImage(result.ipfs())},
-            onError: (error) => console.log(error),
-          }
-        );
-      }
-      reader.readAsDataURL(picture);
+      // var reader = new FileReader();
+      // reader.onloadend = function() {
+      //   //console.log('RESULT', reader.result)
+      //   const base64 = reader.result;
+      //   saveFile(
+      //     "myfile.png",
+      //     { base64 },
+      //     {
+      //       type: "base64",
+      //       saveIPFS: true,
+      //       onSuccess: (result) => {console.log(result.ipfs()); SetImage(result.ipfs())},
+      //       onError: (error) => console.log(error),
+      //     }
+      //   );
+      // }
+      // reader.readAsDataURL(picture);
     
-    };
+    // } ;
     const renderFooter = (name) => {
         return (
             <div>
@@ -186,12 +179,7 @@ console.log("Image hai "+imageIPFS);
                       />
                       <button className="btnbtn">
                       <i style={{marginLeft:'22px', marginTop:'5px'}} className="fa-sharp fa-solid fa-magnifying-glass"></i>
-                        {/* <svg className="svg" viewBox="0 0 1024 1024">
-                          <path
-                            class="path1"
-                            d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-                          ></path>
-                        </svg> */}
+                   
                       </button>
                     </form>
                   </li>
@@ -256,7 +244,7 @@ console.log("Image hai "+imageIPFS);
                                     Owner Name
                                     <InputText
                                       value={OwnerName}
-                                      maxLength ={20}
+                                      // maxLength ={20}
                                       style={{ width: "100%" }}
                                       onChange={(e) =>
                                         setValue1(e.target.value)
@@ -304,7 +292,7 @@ console.log("Image hai "+imageIPFS);
                                     Project Deadline <br></br>{" "}
                                     <DatePicker
                                       selected={endDate}
-                                      onChange={(date) => setEndDate(date)}
+                                      onChange={(date) => setEndDate(date.getTime())}
                                       showTimeSelect
                                       timeFormat="HH:mm"
                                       timeIntervals={15}
@@ -321,138 +309,7 @@ console.log("Image hai "+imageIPFS);
                                 </div>
                               </div>
                 </Dialog>
-                      {/* <div
-                        className="modal fade"
-                        id="staticBackdrop"
-                        data-bs-backdrop="static"
-                        data-bs-keyboard="false"
-                        tabIndex={-1}
-                        aria-labelledby="staticBackdropLabel"
-                        aria-hidden="true"
-                      >
-                        <div className="modal-dialog">
-                          <div className="modal-content">
-                            <div className="modal-header">
-                              <h1
-                                className="modal-title fs-5"
-                                id="staticBackdropLabel"
-                              >
-                                Modal title
-                              </h1>
-                              <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              />
-                            </div>
-                            <div className="modal-body">
-                              {/** */}
-                              {/* <div className="container">
-                                <div className="row">
-                                  <label>
-                                    Owner Name
-                                    <InputText
-                                      value={OwnerName}
-                                      style={{ width: "100%" }}
-                                      onChange={(e) =>
-                                        setValue1(e.target.value)
-                                      }
-                                    />
-                                  </label>
-                                </div>
-                                <div className="row">
-                                  <label>
-                                    Project Name{" "}
-                                    <InputText
-                                      value={ProjectName}
-                                      style={{ width: "100%" }}
-                                      onChange={(e) =>
-                                        setValue2(e.target.value)
-                                      }
-                                    />
-                                  </label>
-                                </div>
-                                <div className="row">
-                                  <label>
-                                    Project Description{" "}
-                                    <InputText
-                                      value={ProjectDesciption}
-                                      style={{ width: "100%" }}
-                                      onChange={(e) =>
-                                        setValue3(e.target.value)
-                                      }
-                                    />
-                                  </label>
-                                </div>
-                                <div className="row">
-                                  <label>
-                                    Target Amount<br></br>{" "}
-                                    <InputNumber
-                                      inputId="integeronly"
-                                      style={{ width: "200px" }}
-                                      value={TargetAmount}
-                                      onValueChange={(e) => setValue4(e.value)}
-                                    />{" "}
-                                  </label>
-                                </div>
-                                <div className="row">
-                                  <label>
-                                    Project Deadline <br></br>{" "}
-                                    <DatePicker
-                                      selected={endDate}
-                                      onChange={(date) => setEndDate(date)}
-                                      showTimeSelect
-                                      timeFormat="HH:mm"
-                                      timeIntervals={15}
-                                      timeCaption="time"
-                                      dateFormat="MMMM d, yyyy h:mm aa"
-                                    />{" "}
-                                  </label>
-                                </div>
-                              </div> */}
-                            {/* </div>
-                            <div className="modal-footer">
-                              <button
-                                type="button"
-                                className="btn btn-demo3"
-                                onClick={() => {
-                                  //call();
-                                }}
-                              >
-                                Submit
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-demo3"
-                                onClick={() => {
-                                  console.log(OwnerName);
-                                }}
-                              >
-                                print{" "}
-                              </button>
-
-                              <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                              >
-                                Close
-                              </button> */}
-                              {/* <button type="button" className="btn btn-primary" onClick={() => demo(OwnerName, ProjectName, ProjectDesciption, TargetAmount, endDate)}>Submit</button> */}
-                              {/* <button type="button" className="btn btn-demo" onClick={() => createProject}>Submit</button>  */}
-                              {/* <button type="button" className="btn btn-demo2" onClick={() => getNumProjects}>Submit</button>  */}
-                              {/* <button type="button" className="btn btn-view" onClick={props.FetchAllProjects}>view testing btn</button> */}
-                              {/* <Web3Button>
-                contractAddress="0x9b517CFdb6505b2ce56A637457C5aB3ebC340c5c"
-                action={(contract) => contract.getNumProjects()}
-  
-                </Web3Button> */}
-                            {/* </div>
-                          </div>
-                        </div>
-                      </div> */} 
-                      {/* Avatar */}
+                     
                     </div>
                 <div className="dropdown">
                   <span

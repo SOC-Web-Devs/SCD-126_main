@@ -23,7 +23,7 @@ const SlimBar = () => {
   const [endDate, setEndDate] = useState(new Date());
 
   const { contract } = useContract(
-    "0x1a6e2B8cB7d77DBe8F5e32561Fe78601773F8F1A"
+    "0x80aAafAE9A9552184513db2dB6DC04538cf4753a"
   );
 
   const address = useAddress();

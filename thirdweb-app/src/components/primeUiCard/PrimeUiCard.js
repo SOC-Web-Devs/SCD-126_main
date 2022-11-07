@@ -46,7 +46,7 @@ const PrimeUiCard = ( props
             <div >
             <div className='row'>
             <div className='col-6'><h6 style={{color:'#d6d6dd'}} >TargetAmount</h6></div>
-            <div className='col-6'><h6 style={{color:'#d6d6dd'}}>{props.ptarget}</h6></div>
+            <div className='col-6'><h6 style={{color:'#d6d6dd'}}>{props.ptarget.substring(0, 7)}</h6></div>
             </div>
             
             </div>

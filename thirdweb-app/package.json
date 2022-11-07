@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^14.2.0",
     "@thirdweb-dev/react": "^3",
     "@thirdweb-dev/sdk": "^3",
+    "@thirdweb-dev/storage": "^1.0.6",
     "babel-plugin-macros": "^3.1.0",
     "ethers": "^5.6.8",
     "moralis": "^2.7.0",
